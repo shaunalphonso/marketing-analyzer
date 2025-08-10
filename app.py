@@ -224,16 +224,14 @@ Welcome to my first vibe-coded app! As a marketer of the future, I'd love to hea
 [📧 Contact](mailto:shaun@georgian.io) | [🌐 LinkedIn](https://www.linkedin.com/in/shaunalphonso/)
         """)
         st.markdown("---")
-        st.markdown("### This tool demonstrates advanced capabilities in:")
+        st.markdown("### This tool demonstrates my growing capabilities in:")
         for feature in [
             "🤖 AI Integration: OpenAI GPT-4",
             "🕷️ Web Scraping: BeautifulSoup",
-            "📊 Data Processing: Pandas",
-            "🚀 Web Development: Streamlit"
+            "🚀 Web Development: Streamlit",
+            "🎯 Digital Marketing"
         ]:
             st.markdown(f"- {feature}")
-        st.markdown("---")
-        st.caption("Tip: enter a URL in the center panel and click Analyze.")
 
     # Initialize analyzer in session state if not present
     if 'analyzer' not in st.session_state:
