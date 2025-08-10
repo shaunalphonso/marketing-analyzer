@@ -212,7 +212,7 @@ def main():
     left_col, center_col, right_col = st.columns([1, 2, 1])
     with center_col:
         st.markdown('<h1 class="main-header">🚀 AI Marketing Analyzer</h1>', unsafe_allow_html=True)
-        st.markdown('<p class="sub-header">Professional website analysis and marketing recommendations powered by AI</p>', unsafe_allow_html=True)
+        st.markdown('<p class="sub-header">Professional website analysis and recommendations to improve your marketing efforts powered by AI</p>', unsafe_allow_html=True)
 
     # Sidebar (left toolbar) - move "Built by" and capabilities here
     with st.sidebar:
@@ -245,7 +245,7 @@ Welcome to my first vibe-coded app! As a marketer of the future, I'd love to hea
     with col_center:
         # Welcome section moved above URL input
         st.markdown("### 👋 Welcome to the AI Marketing Analyzer")
-        st.markdown("Enter a website URL below and press **Analyze Website** to get a full marketing review of your website.")
+        st.markdown("Enter a website URL below and press **Analyze Website** to get a full marketing review of your website with recommendations for improvement.")
         st.markdown("Please note: this analysis is not available for JavaScript websites (yet)")
         
         st.markdown("---")
