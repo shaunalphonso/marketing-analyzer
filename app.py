@@ -204,7 +204,7 @@ class WebsiteAnalyzer:
 def main():
     """Main application function."""
     
-    st.markdown("<h1 class="main-header">🚀 Shaun Alphonso's AI Marketing Analyzer</h1>", unsafe_allow_html=True)
+    st.markdown('<h1 class="main-header">🚀 AI Marketing Analyzer</h1>', unsafe_allow_html=True)
     st.markdown('<p class="sub-header">Professional website analysis and marketing recommendations powered by AI</p>', unsafe_allow_html=True)
     
     col1, col2, col3 = st.columns([1, 2, 1])
