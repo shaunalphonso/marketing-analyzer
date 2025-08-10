@@ -245,7 +245,8 @@ Welcome to my first vibe-coded app! As a marketer of the future, I'd love to hea
     with col_center:
         # Welcome section moved above URL input
         st.markdown("### 👋 Welcome to the AI Marketing Analyzer")
-        st.markdown("Enter a website URL below and press **Analyze Website** to get a full marketing review.")
+        st.markdown("Enter a website URL below and press **Analyze Website** to get a full marketing review of your website.")
+        st.markdown("Please note: this analysis is not available for JavaScript websites (yet)")
         
         st.markdown("---")
         
