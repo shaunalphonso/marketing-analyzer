@@ -357,6 +357,8 @@ def main():
         col1, col2 = st.columns([3, 2])
         with col1:
             st.markdown("""
+            Want to understand how your website strategy is working?
+            
             This tool demonstrates advanced capabilities in:
             
             - **🤖 AI Integration**: OpenAI GPT-4 for intelligent content analysis
