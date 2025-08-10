@@ -371,14 +371,9 @@ def main():
             st.info("""
             **💡 Built by Shaun Alphonso**
             
-            This demo showcases technical expertise in AI/ML engineering, web development, and digital marketing strategy.
+            Welcome to my first vibe-coded app! As a marketer of the future, I'd love to hear about your experience using this app.
             
-            **Technologies Used:**
-            - Python, Streamlit
-            - OpenAI API, BeautifulSoup
-            - Docker, Cloud Deployment
-            
-            [📧 Contact](mailto:contact@shaunalphonso.com) | [🌐 Portfolio](https://shaunalphonso.com)
+            [📧 Contact](mailto:shaun@georgian.io) | [🌐 LinkedIn](https://www.linkedin.com/in/shaunalphonso/)
             """)
     
     st.markdown('<div class="footer">Built with ❤️ by <strong>Shaun Alphonso</strong> | Experimenting with AI/ML Engineering & Digital Marketing<br>🚀 <em>This tool is part of my professional portfolio demonstrating production-ready AI applications</em></div>', unsafe_allow_html=True)
