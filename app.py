@@ -214,10 +214,10 @@ def main():
         st.markdown('<h1 class="main-header">🚀 AI Marketing Analyzer</h1>', unsafe_allow_html=True)
         st.markdown('<p class="sub-header">Professional website analysis and recommendations to improve your marketing efforts powered by AI</p>', unsafe_allow_html=True)
 
-    # Sidebar (left toolbar) - move "Built by" and capabilities here
+    # Sidebar (left toolbar)
     with st.sidebar:
-        st.header("💡 Built by")
-        st.markdown("**Shaun Alphonso**")
+        st.header("💡 About")
+        st.markdown("**App built by Shaun Alphonso**")
         st.info("""
 Welcome to my first vibe-coded app! As a marketer of the future, I'd love to hear about your experience using this app.
 
