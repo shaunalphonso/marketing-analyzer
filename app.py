@@ -309,100 +309,102 @@ Welcome to my first vibe-coded app! As a marketer of the future, I'd love to hea
 
         # Keep analysis results in center column
         with col_center:
-            try:
-                # Step 1: Scrape
-                status_text.success("🕷️ Step 1: Extracting website content...")
-                progress_bar.progress(20)
-                content = st.session_state.analyzer.scrape_website(url)
-                time.sleep(0.6)
+            # Get the progress elements that were created above
+            if 'progress_container' in locals() and 'progress_bar' in locals() and 'status_text' in locals():
+                try:
+                    # Step 1: Scrape
+                    status_text.success("🕷️ Step 1: Extracting website content...")
+                    progress_bar.progress(20)
+                    content = st.session_state.analyzer.scrape_website(url)
+                    time.sleep(0.6)
 
-                # Step 2: AI analysis
-                status_text.success("🧠 Step 2: AI analysis in progress...")
-                progress_bar.progress(50)
-                analysis_results = st.session_state.analyzer.analyze_content(content, url)
-                if "error" in analysis_results:
-                    st.error(f"❌ Analysis failed: {analysis_results['error']}")
+                    # Step 2: AI analysis
+                    status_text.success("🧠 Step 2: AI analysis in progress...")
+                    progress_bar.progress(50)
+                    analysis_results = st.session_state.analyzer.analyze_content(content, url)
+                    if "error" in analysis_results:
+                        st.error(f"❌ Analysis failed: {analysis_results['error']}")
+                        progress_bar.empty()
+                        status_text.empty()
+                        return
+                    time.sleep(0.6)
+
+                    # Step 3: Recommendations
+                    status_text.success("💡 Step 3: Generating marketing recommendations...")
+                    progress_bar.progress(80)
+                    recommendations = st.session_state.analyzer.generate_recommendations(analysis_results)
+
+                    # Done
+                    status_text.success("✅ Step 4: Analysis complete!")
+                    progress_bar.progress(100)
+                    time.sleep(0.4)
+
                     progress_bar.empty()
                     status_text.empty()
-                    return
-                time.sleep(0.6)
 
-                # Step 3: Recommendations
-                status_text.success("💡 Step 3: Generating marketing recommendations...")
-                progress_bar.progress(80)
-                recommendations = st.session_state.analyzer.generate_recommendations(analysis_results)
+                    # Display results (centered)
+                    st.markdown("---")
+                    st.markdown("## 📊 Analysis Results")
 
-                # Done
-                status_text.success("✅ Step 4: Analysis complete!")
-                progress_bar.progress(100)
-                time.sleep(0.4)
+                    metrics_cols = st.columns(3)
+                    with metrics_cols[0]:
+                        keywords = analysis_results.get("SEO Keywords", "").split(",")
+                        st.markdown(f'<div class="metric-container"><h3>🔍 SEO Keywords</h3><h2>{len([k for k in keywords if k.strip()])}</h2><p>Keywords identified</p></div>', unsafe_allow_html=True)
+                    with metrics_cols[1]:
+                        ctas = analysis_results.get("Call-to-Actions", "").split(",")
+                        st.markdown(f'<div class="metric-container"><h3>🎯 Call-to-Actions</h3><h2>{len([c for c in ctas if c.strip()])}</h2><p>CTAs found</p></div>', unsafe_allow_html=True)
+                    with metrics_cols[2]:
+                        st.markdown(f'<div class="metric-container"><h3>📄 Content Volume</h3><h2>{analysis_results.get("Content_Length", 0):,}</h2><p>Characters analyzed</p></div>', unsafe_allow_html=True)
 
-                progress_bar.empty()
-                status_text.empty()
+                    st.markdown("### 📈 Detailed Analysis")
+                    for key, value in analysis_results.items():
+                        if key not in ["URL", "Content_Length", "error"] and not str(value).startswith("Analysis error"):
+                            st.markdown(f"**{key}:**")
+                            st.info(value)
 
-                # Display results (centered)
-                st.markdown("---")
-                st.markdown("## 📊 Analysis Results")
+                    st.markdown("### 🚀 AI Marketing Recommendations")
+                    rec_cols = st.columns(2)
+                    col_index = 0
+                    for category, recommendations_text in recommendations.items():
+                        with rec_cols[col_index % 2]:
+                            st.markdown(f"#### {category}")
+                            st.markdown(f'<div class="recommendation-card">{recommendations_text}</div>', unsafe_allow_html=True)
+                        col_index += 1
 
-                metrics_cols = st.columns(3)
-                with metrics_cols[0]:
-                    keywords = analysis_results.get("SEO Keywords", "").split(",")
-                    st.markdown(f'<div class="metric-container"><h3>🔍 SEO Keywords</h3><h2>{len([k for k in keywords if k.strip()])}</h2><p>Keywords identified</p></div>', unsafe_allow_html=True)
-                with metrics_cols[1]:
-                    ctas = analysis_results.get("Call-to-Actions", "").split(",")
-                    st.markdown(f'<div class="metric-container"><h3>🎯 Call-to-Actions</h3><h2>{len([c for c in ctas if c.strip()])}</h2><p>CTAs found</p></div>', unsafe_allow_html=True)
-                with metrics_cols[2]:
-                    st.markdown(f'<div class="metric-container"><h3>📄 Content Volume</h3><h2>{analysis_results.get("Content_Length", 0):,}</h2><p>Characters analyzed</p></div>', unsafe_allow_html=True)
+                    st.markdown("### 📥 Export Results")
+                    export_data = {
+                        "website_url": url,
+                        "analysis_results": analysis_results,
+                        "recommendations": recommendations,
+                        "analysis_timestamp": time.strftime("%Y-%m-%d %H:%M:%S UTC"),
+                        "analyzed_by": "AI Marketing Analyzer - Shaun Alphonso Portfolio"
+                    }
 
-                st.markdown("### 📈 Detailed Analysis")
-                for key, value in analysis_results.items():
-                    if key not in ["URL", "Content_Length", "error"] and not str(value).startswith("Analysis error"):
-                        st.markdown(f"**{key}:**")
-                        st.info(value)
+                    dl_cols = st.columns(2)
+                    with dl_cols[0]:
+                        st.download_button(
+                            "📊 Download JSON Report",
+                            data=json.dumps(export_data, indent=2),
+                            file_name=f"marketing_analysis_{url.replace('https://', '').replace('/', '_')[:50]}.json",
+                            mime="application/json",
+                            use_container_width=True
+                        )
+                    with dl_cols[1]:
+                        df = pd.DataFrame([analysis_results])
+                        st.download_button(
+                            "📈 Download CSV Data",
+                            data=df.to_csv(index=False),
+                            file_name=f"analysis_data_{time.strftime('%Y%m%d_%H%M%S')}.csv",
+                            mime="text/csv",
+                            use_container_width=True
+                        )
 
-                st.markdown("### 🚀 AI Marketing Recommendations")
-                rec_cols = st.columns(2)
-                col_index = 0
-                for category, recommendations_text in recommendations.items():
-                    with rec_cols[col_index % 2]:
-                        st.markdown(f"#### {category}")
-                        st.markdown(f'<div class="recommendation-card">{recommendations_text}</div>', unsafe_allow_html=True)
-                    col_index += 1
+                    st.markdown('<div class="success-message">🎉 <strong>Analysis Complete!</strong> Your comprehensive marketing report is ready. Use the recommendations above to optimize your website\'s performance.</div>', unsafe_allow_html=True)
 
-                st.markdown("### 📥 Export Results")
-                export_data = {
-                    "website_url": url,
-                    "analysis_results": analysis_results,
-                    "recommendations": recommendations,
-                    "analysis_timestamp": time.strftime("%Y-%m-%d %H:%M:%S UTC"),
-                    "analyzed_by": "AI Marketing Analyzer - Shaun Alphonso Portfolio"
-                }
-
-                dl_cols = st.columns(2)
-                with dl_cols[0]:
-                    st.download_button(
-                        "📊 Download JSON Report",
-                        data=json.dumps(export_data, indent=2),
-                        file_name=f"marketing_analysis_{url.replace('https://', '').replace('/', '_')[:50]}.json",
-                        mime="application/json",
-                        use_container_width=True
-                    )
-                with dl_cols[1]:
-                    df = pd.DataFrame([analysis_results])
-                    st.download_button(
-                        "📈 Download CSV Data",
-                        data=df.to_csv(index=False),
-                        file_name=f"analysis_data_{time.strftime('%Y%m%d_%H%M%S')}.csv",
-                        mime="text/csv",
-                        use_container_width=True
-                    )
-
-                st.markdown('<div class="success-message">🎉 <strong>Analysis Complete!</strong> Your comprehensive marketing report is ready. Use the recommendations above to optimize your website\'s performance.</div>', unsafe_allow_html=True)
-
-            except Exception as e:
-                progress_bar.empty()
-                status_text.empty()
-                st.markdown(f'<div class="error-message">❌ <strong>Analysis Failed:</strong> {str(e)}</div>', unsafe_allow_html=True)
+                except Exception as e:
+                    progress_bar.empty()
+                    status_text.empty()
+                    st.markdown(f'<div class="error-message">❌ <strong>Analysis Failed:</strong> {str(e)}</div>', unsafe_allow_html=True)
 
     elif analyze_button and not url:
         # center the warning too
