@@ -213,7 +213,6 @@ def main():
     with center_col:
         st.markdown('<h1 class="main-header">🚀 AI Marketing Analyzer</h1>', unsafe_allow_html=True)
         st.markdown('<p class="sub-header">Professional website analysis and marketing recommendations powered by AI</p>', unsafe_allow_html=True)
-        st.markdown('<div style="text-align:center;"><span class="demo-badge">💼 PORTFOLIO DEMO</span></div>', unsafe_allow_html=True)
 
     # Sidebar (left toolbar) - move "Built by" and capabilities here
     with st.sidebar:
@@ -241,9 +240,15 @@ Welcome to my first vibe-coded app! As a marketer of the future, I'd love to hea
         with st.spinner("🔧 Initializing AI marketing analyzer..."):
             st.session_state.analyzer = WebsiteAnalyzer()
 
-    # Center column: URL input, features, and examples (examples appear below features)
+    # Center column: Welcome message, URL input, features, and examples
     col_left, col_center, col_right = st.columns([0.5, 1, 0.5])
     with col_center:
+        # Welcome section moved above URL input
+        st.markdown("### 👋 Welcome to the AI Marketing Analyzer")
+        st.markdown("Enter a website URL below and press **Analyze Website** to get a full marketing review.")
+        
+        st.markdown("---")
+        
         url = st.text_input(
             "Enter Website URL:",
             placeholder="https://example.com",
@@ -395,11 +400,6 @@ Welcome to my first vibe-coded app! As a marketer of the future, I'd love to hea
         # center the warning too
         with col_center:
             st.warning("⚠️ Please enter a website URL to begin analysis.")
-    else:
-        # initial/idle state (centered)
-        with col_center:
-            st.markdown("### 👋 Welcome to the AI Marketing Analyzer")
-            st.markdown("Enter a website URL above and press **Analyze Website** to get a full marketing review.")
 
     # Footer (full width)
     st.markdown('<div class="footer">Built with ❤️ by <strong>Shaun Alphonso</strong> | Experimenting with AI/ML Engineering & Digital Marketing<br>🚀 <em>This tool is part of my professional portfolio demonstrating production-ready AI applications</em></div>', unsafe_allow_html=True)
@@ -407,7 +407,6 @@ Welcome to my first vibe-coded app! As a marketer of the future, I'd love to hea
 
 if __name__ == "__main__":
     main()
-
 
 
 # import streamlit as st
